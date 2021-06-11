@@ -1,8 +1,7 @@
 <template>
 
   <banner/>
-
-  <div class="black-bg" v-if="proView==true">
+  <!-- <div class="black-bg" v-if="proView==true">
     <div class="white-bg">
       <img v-bind:src="product[proNum].image">
       <div> {{product[proNum].title}} </div>
@@ -10,12 +9,19 @@
       <div> {{product[proNum].content}} </div>
       <button v-on:click="proView=false">닫기</button>
     </div>
-  </div>
+  </div> -->
+  <modal v-bind:product="product" 
+  v-bind:proView="proView"
+  v-bind:proNum="proNum"
+  @modalClose="proView=false"
+  />
 
   <ul class="view">
     <li v-for="(item,i) in product" v-bind:key="i"> 
       <img v-bind:src="product[i].image">
-      <div> {{product[i].title}} <span v-on:click="proView=true;proNum=i">[상세보기]</span></div>
+      <div> {{product[i].title}} 
+        <span @click="proView=true;proNum=i">[상세보기]</span>
+      </div>
       <div> {{product[i].price}} </div>
     </li>
   </ul>
@@ -25,6 +31,7 @@
 <script>
 import vdata from './data.js'
 import banner from './components/banner.vue'
+import modal from './components/modal.vue'
 
 export default {
   name: 'App',
@@ -36,7 +43,8 @@ export default {
     }
   },
   components:{
-    banner:banner,
+    banner, // banner:banner,
+    modal,
   }
 }
 </script>
@@ -46,7 +54,7 @@ export default {
   *{padding: 0;margin: 0;}
   li{list-style: none;}
   img{width: 100%}
-  .view li {margin-bottom: 10px;}
+  .view li {margin-bottom: 20px;}
 
   .black-bg{position:fixed;
            width: 100%; height: 100%;
