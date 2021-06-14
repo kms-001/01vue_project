@@ -10,11 +10,17 @@
       <button v-on:click="proView=false">닫기</button>
     </div>
   </div> -->
+
+  <!-- <div class="start" v-bind:class="{end:proView}"> -->
+    
+    <transition name="show">
   <modal v-bind:product="product" 
   v-bind:proView="proView"
   v-bind:proNum="proNum"
   @modalClose="proView=false"
   />
+    </transition>
+  <!-- </div> -->
 
   <!-- <ul class="view">
     <li v-for="(item,i) in product" v-bind:key="i"> 
@@ -25,6 +31,7 @@
       <div> {{product[i].price}} </div>
     </li>
   </ul> -->
+
  <product :product="product[i]" 
  v-for="(item,i) in product" :key="i" 
  @modalOpen="proView=true;proNum=$event"
@@ -70,4 +77,19 @@ export default {
            align-items: center;}
   .white-bg {width: 80%; background: #fff;
             border-radius: 5px; padding: 20px;}
+  .start{opacity:0; transition: 0.3s;}
+  .start.end{opacity:1}
+  
+  .show-enter-from{opacity: 0; transform:translateY(1000px)}
+  .show-enter-active{transition: 1s;}
+  .show-enter-to{opacity: 1; transform:translateY(0)} 
+
+  .show-leave-from{opacity: 1;}
+  .show-leave-active{transition: 0.3s;}
+  .show-leave-to{opacity: 0;}
+
+
+  /* .show-enter-from, .show-leave-to {opacity: 0; transform:translateY(1000px)}
+  .show-enter-active, .show-leave-active {transition: 1s;}
+  .show-enter-to,.show-leave-to {opacity: 1; transform:translateY(0)}  */
 </style>
